@@ -181,7 +181,7 @@ void Tweak::processTimerHandler(void) {
 int8_t Tweak::attachCallback(void (*callbackFunction)(), uint16_t period, bool isUsScale) {
     if (!this->callbackArray){
         Tweak::me().setCallbackArraySize(DEFAULT_CALLBACK_ARRAY_SIZE);
-        Serial.print(F("Callback array size is set to default "));
+        Serial.print(F("Tweak: callback array size is set to default "));
         Serial.println(this->callbackArraySize, DEC);
     }
 
@@ -218,7 +218,7 @@ int8_t Tweak::attachCallback(void (*callbackFunction)(), uint16_t period, bool i
 int8_t Tweak::attachMemberCallback(TweakCallbackOwnerClass* obj, uint16_t period, bool isUsScale) {
     if (!this->callbackArray){
         Tweak::me().setCallbackArraySize(DEFAULT_CALLBACK_ARRAY_SIZE);
-        Serial.print(F("Callback array size is set to default "));
+        Serial.print(F("Tweak: callback array size is set to default "));
         Serial.println(this->callbackArraySize, DEC);
     }
 
