@@ -96,7 +96,7 @@ class Tweak {
         static void delay(uint16_t delay_ms);
         static void timerHandler();
         static void setCallbackArraySize(uint8_t size);
-        static void SetCallbackActive(uint8_t id, bool setActive);
+        static void setCallbackActive(uint8_t id, bool setActive);
 
     private:
 

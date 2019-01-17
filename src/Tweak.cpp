@@ -14,6 +14,8 @@
  */
 #include "Tweak.h"
 
+//#define SERIAL_LOG
+
 /**************************************************************************/
 /*!
     @brief    Instantiate and configure Tweak, which uses TimerOne
@@ -125,12 +127,19 @@ void Tweak::delay(uint16_t delay_ms) {
 /**************************************************************************/
 void Tweak::setCallbackArraySize(uint8_t size){
     if (size > 127){
+        #ifdef SERIAL_LOG
         Serial.println(F("Max array size is 127"));
+        #endif /* SERIAL_LOG */
         return;
     }
     me().callbackArraySize = size;
-    if (!me().callbackArray)
+    if (!me().callbackArray){
         me().callbackArray = new TweakCallbackItem[size];
+        #ifdef SERIAL_LOG
+        Serial.print(F("Tweak: callback array size is set to "));
+        Serial.println(size, DEC);
+        #endif /* SERIAL_LOG */
+    }
 }
 
 /**************************************************************************/
@@ -140,7 +149,7 @@ void Tweak::setCallbackArraySize(uint8_t size){
     @param    setActive  Set selected callback active or not (true/false)
 */
 /**************************************************************************/
-void Tweak::SetCallbackActive(uint8_t id, bool setActive){
+void Tweak::setCallbackActive(uint8_t id, bool setActive){
     if (Tweak::me().callbackArray[id].isActive != setActive)
         Tweak::me().callbackArray[id].isActive = setActive;
 }
@@ -181,8 +190,10 @@ void Tweak::processTimerHandler(void) {
 int8_t Tweak::attachCallback(void (*callbackFunction)(), uint16_t period, bool isUsScale) {
     if (!this->callbackArray){
         Tweak::me().setCallbackArraySize(DEFAULT_CALLBACK_ARRAY_SIZE);
+        #ifdef SERIAL_LOG
         Serial.print(F("Tweak: callback array size is set to default "));
         Serial.println(this->callbackArraySize, DEC);
+        #endif /* SERIAL_LOG */
     }
 
     if (this->callbackArraySize == 127)
@@ -218,8 +229,10 @@ int8_t Tweak::attachCallback(void (*callbackFunction)(), uint16_t period, bool i
 int8_t Tweak::attachMemberCallback(TweakCallbackOwnerClass* obj, uint16_t period, bool isUsScale) {
     if (!this->callbackArray){
         Tweak::me().setCallbackArraySize(DEFAULT_CALLBACK_ARRAY_SIZE);
+        #ifdef SERIAL_LOG
         Serial.print(F("Tweak: callback array size is set to default "));
         Serial.println(this->callbackArraySize, DEC);
+        #endif /* SERIAL_LOG */
     }
 
     if (this->callbackArraySize == 127)
