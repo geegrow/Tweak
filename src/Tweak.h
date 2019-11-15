@@ -15,7 +15,15 @@
 #ifndef TWEAK_H
 #define TWEAK_H
 #include "Arduino.h"
+
+/* Uncomment this to use TimerFour instead of Timer1 (only on Mega2560) */
+// #define USE_TIMER_FOUR
+
+#ifndef USE_TIMER_FOUR
 #include <TimerOne.h>
+#else
+#include <TimerFour.h>
+#endif /* USE_TIMER_FOUR */
 
 typedef void (*UserCallback)(void);
 

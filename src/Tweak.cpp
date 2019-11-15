@@ -22,8 +22,14 @@
 */
 /**************************************************************************/
 Tweak::Tweak() {
+
+#ifndef USE_TIMER_FOUR
     Timer1.initialize(100);
     Timer1.attachInterrupt(timerHandler);
+#else
+    Timer4.initialize(100);
+    Timer4.attachInterrupt(timerHandler);
+#endif /* USE_TIMER_FOUR */
 }
 
 /**************************************************************************/
@@ -87,7 +93,7 @@ int8_t Tweak::attachMsMemberCallback(TweakCallbackOwnerClass* obj, uint16_t mill
                             inherited from TweakCallbackOwnerClass and MUST include
                             function tweakHandler, which will be called after
                             timer estimation
-    @param    milliseconds  Period (in Us)
+    @param    microseconds  Period (in Us)
     @return   ID of callback in array
 */
 /**************************************************************************/
